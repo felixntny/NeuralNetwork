@@ -126,6 +126,7 @@ namespace NeuralNetworks
 
         public void AddDefaultWeights()
         {
+
             decimal initValue = 0.15m;
             for (int layerIndex = 1; layerIndex < _numberOfHiddenLayers; layerIndex++)
             {

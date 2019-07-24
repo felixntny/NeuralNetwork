@@ -21,12 +21,13 @@ namespace NeuralNetworks
         private static void FeedData()
         {
             int iterationStatus = 0;
+            int index = 0;
 
 
             for (int i = 0; i < 1000000; i++)
             {
-                 decimal randomNumber1 = 1;
-                decimal randomNumber2 = 1; 
+                decimal randomNumber1 = 1;
+                decimal randomNumber2 = 1;
                 // decimal randomNumber1 = new Random().Next(0, 100000000);
                 // decimal randomNumber2 = randomNumber1 + i;
 
@@ -41,13 +42,13 @@ namespace NeuralNetworks
                     randomNumber2 = 1;
                     iterationStatus++;
                 }
-                if (iterationStatus == 1)
+                else if (iterationStatus == 1)
                 {
                     randomNumber1 = 1;
                     randomNumber2 = 0;
                     iterationStatus++;
                 }
-                if (iterationStatus == 2)
+                else if (iterationStatus == 2)
                 {
                     randomNumber1 = 0;
                     randomNumber2 = 1;
@@ -62,7 +63,15 @@ namespace NeuralNetworks
 
                 decimal exp = (randomNumber1 == 1 || randomNumber2 == 1 ? 1 : 0);
 
-
+                var dataa =    trainingDataForFlowerColor(index);
+                randomNumber1 = dataa[0, 0];
+                randomNumber2 = dataa[0, 1];
+                exp = dataa[0, 2];
+                index++;
+                if(index == 8)
+                {
+                    index = 0;
+                }
                 //      int randomNumber2 = randomNumber1 == 1 ? 0 : 1;// new Random().Next(0,2);
                 //           Console.WriteLine(randomNumber1 + " " + randomNumber2 );
 
@@ -87,15 +96,34 @@ namespace NeuralNetworks
 
                 if (network.TotalErrorValue < 0.0000001m)
                 {
-         //           break;
+                    //           break;
                 }
             }
 
 
             Console.Write(Math.Round(network.TotalErrorValue, 3) + " ");
 
-          
 
+
+        }
+
+        private static decimal[,] trainingDataForFlowerColor(int index)
+        {
+            decimal[,] data = { {3, 1.5M, 1 },
+                                { 2,   1,   0 },
+                                { 4,   1.5M, 1 },
+                                { 3,   1,   0 },
+                                { 3.5M, .5M,  1 },
+                                { 2,   .5M,  0 },
+                                { 5.5M,  1,  1},
+                                {1,    1,  0}
+                                 } ;
+
+            var returnValue =  new decimal[1,3]  ;
+            returnValue[0, 0] = data[index, 0];
+            returnValue[0, 1] = data[index, 1];
+            returnValue[0, 2] = data[index, 2];
+            return returnValue;
         }
     }
 }

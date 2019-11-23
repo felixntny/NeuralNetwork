@@ -90,11 +90,11 @@ namespace NeuralNetworks
 
         private void AddDefaultInputValues()
         {
-            decimal initValue = 0.05m;
+            decimal initValue = 0.0005m;
             for (int inputNodeIndex = 0; inputNodeIndex < _neuronLayer.ElementAt(0).NeuronNodes.Count - 1; inputNodeIndex++)
             {
                 _neuronLayer.ElementAt(0).NeuronNodes.ElementAt(inputNodeIndex).NetValue = initValue;
-                initValue += 0.05m;
+                initValue += 0.0005m;
             }
 
             // Set BIAS value as 1
@@ -127,7 +127,7 @@ namespace NeuralNetworks
         public void AddDefaultWeights()
         {
             // default weight
-            decimal initValue = 0.15m;
+            decimal initValue = -0.0005m;
             for (int layerIndex = 1; layerIndex < _numberOfHiddenLayers; layerIndex++)
             {
                 int nodeCount = _neuronLayer.ElementAt(layerIndex).NeuronNodes.Count - 1;
@@ -143,23 +143,23 @@ namespace NeuralNetworks
                     {
                         var data = weightMatrix.ElementAt(layerIndex - 1);
                         data[prevLayerNodeIndex, currentLayerNodeIndex] = initValue;
-                        initValue += 0.05m;
+                        initValue += 0.0005m;
                     }
                 }
             }
 
-            weightMatrix.ElementAt(0)[0, 0] = 0.15m;
-            weightMatrix.ElementAt(0)[1, 0] = 0.2m;
-            weightMatrix.ElementAt(0)[0, 1] = 0.25m;
-            weightMatrix.ElementAt(0)[1, 1] = 0.3m;
-            weightMatrix.ElementAt(0)[2, 0] = 0.35m;
-            weightMatrix.ElementAt(0)[2, 1] = 0.35m;
-            weightMatrix.ElementAt(1)[0, 0] = 0.4m;
-            weightMatrix.ElementAt(1)[1, 0] = 0.45m;
-      //      weightMatrix.ElementAt(1)[0, 1] = 0.5m;
-      //      weightMatrix.ElementAt(1)[1, 1] = 0.55m;
-            weightMatrix.ElementAt(1)[2, 0] = 0.6m;
-      //      weightMatrix.ElementAt(1)[2, 1] = 0.6m;
+      //      weightMatrix.ElementAt(0)[0, 0] = 0.15m;
+      //      weightMatrix.ElementAt(0)[1, 0] = 0.2m;
+      //      weightMatrix.ElementAt(0)[0, 1] = 0.25m;
+      //      weightMatrix.ElementAt(0)[1, 1] = 0.3m;
+      //      weightMatrix.ElementAt(0)[2, 0] = 0.35m;
+      //      weightMatrix.ElementAt(0)[2, 1] = 0.35m;
+      //      weightMatrix.ElementAt(1)[0, 0] = 0.4m;
+      //      weightMatrix.ElementAt(1)[1, 0] = 0.45m;
+      ////      weightMatrix.ElementAt(1)[0, 1] = 0.5m;
+      ////      weightMatrix.ElementAt(1)[1, 1] = 0.55m;
+      //      weightMatrix.ElementAt(1)[2, 0] = 0.6m;
+      ////      weightMatrix.ElementAt(1)[2, 1] = 0.6m;
 
 
             ModifiedWeightMatrix = weightMatrix;
@@ -214,7 +214,7 @@ namespace NeuralNetworks
             }
 
 
-            for (int hiddenLayerIndex = _numberOfHiddenLayers - 2; hiddenLayerIndex > 0; hiddenLayerIndex--)
+            for (int hiddenLayerIndex = _numberOfHiddenLayers - 2; hiddenLayerIndex >= 0; hiddenLayerIndex--)
             {
                 int lastHiddenLayerTotalNodeCount = _neuronLayer.ElementAt(hiddenLayerIndex).TotalNodes ;
                 for (int hiddenLayerNodeIndex = 0; hiddenLayerNodeIndex < lastHiddenLayerTotalNodeCount; hiddenLayerNodeIndex++)
